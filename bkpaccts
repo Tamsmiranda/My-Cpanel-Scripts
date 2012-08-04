@@ -1,0 +1,30 @@
+#!/bin/bash
+# bkpaccts - Backup all users accounts
+
+NOW=`date +%Y-%m-%d`
+
+# Cpanel users files path
+CPUSERS="/var/cpanel/users"
+
+# Cpanel scripts path
+CPPKGACCT=/scripts/pkgacct
+
+################################################################
+#	Local Vars
+################################################################
+
+# Local Backup directory
+LCLBKPDIR="/backup"
+
+# Backup Server
+BKPSRV="server.com"
+
+
+if [ ! -d "$LCLBKPDIR/$NOW" ]; then
+	mkdir -p "$LCLBKPDIR/$NOW"
+fi
+
+for USER in `ls $CPUSERS`
+do
+	$CPPKGACCT $USER $LCLBKPDIR/$NOW
+done
